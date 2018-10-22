@@ -6,13 +6,57 @@ export class Home extends React.Component {
 		this.state = {
 			age: props.initialAge,
 			status: 0,
-			homeLink: props.initialLinkName
+			homeLink: props.initialLinkName,
+			statusTimer: setInterval(() => {
+				this.setState({
+					status: this.state.status + 1
+				});
+			}, 3000)
 		};
-		setInterval(() => {
-			this.setState({
-				status: this.state.status + 1
-			});
-		}, 3000);
+		console.log('constructor');
+	}
+
+	componentWillMount() {
+		console.log('componentWillMount');
+	}
+
+	componentDidMount() {
+		console.log('componentDidMount');
+	}
+
+	componentWillReceiveProps(newProps) {
+		console.log('componentWillReceiveProps');
+		console.log(newProps);
+	}
+
+	shouldComponentUpdate(newProps, newState) {
+		console.log('shouldComponentUpdate');
+		console.log('newProps');
+		console.log(newProps);
+		console.log('newState');
+		console.log(newState);
+		return true;
+	}
+
+	componentWillUpdate(newProps, newState) {
+		console.log('componentWillUpdate');
+		console.log('newProps');
+		console.log(newProps);
+		console.log('newState');
+		console.log(newState);
+	}
+
+	componentDidUpdate(oldProps, oldState) {
+		console.log('componentDidUpdate');
+		console.log('oldProps');
+		console.log(oldProps);
+		console.log('oldState');
+		console.log(oldState);
+	}
+
+	componentWillUnmount() {
+		console.log('componentWillUnmount');
+		clearInterval(this.state.statusTimer);
 	}
 
 	onMakeOlder() {
@@ -47,8 +91,14 @@ export class Home extends React.Component {
 				<hr />
 				<button onClick={() => this.props.greet(this.props.name)} className="btn btn-primary">Greet</button>
 				<hr />
-				<input type="text" value={this.state.homeLink} onChange={(event) => this.onChangeHandler(event)} />
-				<button onClick={() => this.onChangeLink()} className="btn btn-primary">Change Header Link</button>
+				<div className="row">
+					<div className="col">
+						<input className="form-control mb-1" type="text" value={this.state.homeLink} onChange={(event) => this.onChangeHandler(event)} />
+					</div>
+					<div className="col">
+						<button onClick={() => this.onChangeLink()} className="btn btn-primary">Change Header Link</button>
+					</div>
+				</div>
 			</div>
 		);
 	}
